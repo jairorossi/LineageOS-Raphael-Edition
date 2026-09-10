@@ -130,6 +130,24 @@ Crie o arquivo `~/.android/lineage/.repo/local_manifests/raphael.xml` com o cont
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 ```
 
+### 3.5. Baixar os Prebuilt Apps (APKs grandes)
+
+Os apps pré-compilados (Miui Gallery, Miui Gallery Editor, GBoard e MarkupGoogle) **não estão no repositório git** — eles ficam como **assets na Release** do GitHub (o GitHub não permite Git LFS em forks). Baixe os APKs e coloque no diretório de prebuilts antes de compilar:
+
+```bash
+# 1. Baixe os APKs da Release v1.0 (ou a mais recente):
+#    https://github.com/jairorossi/LineageOS-Raphael-Edition/releases
+#    Arquivos: MiuiGallery.apk, MiuiGalleryEditor.apk,
+#              LatinIMEGooglePrebuilt.apk, MarkupGoogle.apk
+
+# 2. Copie para o diretório de prebuilts do device tree:
+mkdir -p device/xiaomi/raphael/prebuilt-apps
+cp MiuiGallery.apk MiuiGalleryEditor.apk LatinIMEGooglePrebuilt.apk MarkupGoogle.apk \
+   device/xiaomi/raphael/prebuilt-apps/
+```
+
+> O `device.mk` e o `prebuilt-apps/Android.mk` já vêm no repo (instalam os apps como apps de sistema). Só faltam os APKs em si.
+
 ### 4. Compilar a ROM
 ```bash
 source build/envsetup.sh
