@@ -2,6 +2,8 @@
 <manifest>
     <!-- Xiaomi Mi 9T Pro / Redmi K20 Pro (raphael) Local Manifest - LineageOS 19.1 -->
 
+    <remote name="gitlab" fetch="https://gitlab.com/" />
+
     <!-- Device Trees -->
     <project name="LineageOS/android_device_xiaomi_raphael" path="device/xiaomi/raphael" remote="github" revision="lineage-19.1" />
     <project name="LineageOS/android_device_xiaomi_sm8150-common" path="device/xiaomi/sm8150-common" remote="github" revision="lineage-19.1" />
@@ -9,8 +11,8 @@
     <!-- Kernel Source -->
     <project name="LineageOS/android_kernel_xiaomi_sm8150" path="kernel/xiaomi/sm8150" remote="github" revision="lineage-19.1" />
 
-    <!-- Vendor Blobs (TheMuppets) -->
-    <project name="TheMuppets/proprietary_vendor_xiaomi" path="vendor/xiaomi" remote="github" revision="lineage-19.1" />
+    <!-- Vendor Blobs (TheMuppets - GitLab, pois a branch lineage-19.1 só existe lá) -->
+    <project name="the-muppets/proprietary_vendor_xiaomi" path="vendor/xiaomi" remote="gitlab" revision="lineage-19.1" />
 
     <!-- Hardware / Xiaomi Common Interfaces -->
     <project name="LineageOS/android_hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-19.1" />

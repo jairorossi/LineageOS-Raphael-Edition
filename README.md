@@ -53,9 +53,9 @@
 | :--- | :--- | :---: |
 | 📦 **LineageOS 19.1 ROM** | Build oficial customizada `lineage-19.1-*-UNOFFICIAL-raphael.zip` | *(Link em atualização)* |
 | 🦊 **OrangeFox Recovery** | Recovery compatível com Retrofit Dynamic Partitions | *(Link em atualização)* |
-| 🔄 **Retrofit Dynamic Script** | Script de conversão de partições dinâmicas | *(Link em atualização)* |
+| 🔄 **Super Empty** | `super_empty.img` para preparar as partições dinâmicas (retrofit) | [`/files/super_empty.img`](files/super_empty.img) |
+| 🛡️ **Boot com Magisk** | `boot_custom.img` (kernel 4.14 da LOS + Magisk embutido) | *(Link em atualização)* |
 | 📶 **Firmware MIUI 12.5.2** | Firmware global oficial necessário para os modems | *(Link em atualização)* |
-| 🛡️ **DFE (Disable Force Encrypt)** | Desativa a criptografia forçada da partição de dados | *(Link em atualização)* |
 | 📦 **NikGApps (Opcional)** | Pacote Google Play Store / Serviços (Core / Basic recomendados) | [NikGApps A12.1](https://nikgapps.com/downloads) |
 
 ---
@@ -64,29 +64,47 @@
 
 ### ⚠️ Requisitos Prévios
 * Bootloader do Xiaomi Mi 9T Pro desbloqueado.
-* Cabo USB original conectado ao computador com drivers ADB e Fastboot instalados.
+* Cabo USB original + `adb` e `fastboot` (platform-tools) instalados no PC.
 * Bateria com pelo menos 60% de carga.
-* Backup completo dos seus dados pessoais (o procedimento fará a formatação da partição de dados).
+* Arquivos baixados: `OrangeFox-R11.3_Unified-Unofficial-raphael.zip`, `super_empty.img` e a `lineage-19.1-*-raphael.zip`.
 
 ---
 
-### 📲 Passo a Passo no Recovery (OrangeFox / TWRP Retrofit)
+### 📲 Passo a Passo (método correto com Retrofit Dynamic Partitions)
 
-1. **Entrar no Modo Recovery:**
-   * Desligue o telefone e ligue segurando **Volume Mais (+) + Botão Power**.
-2. **Wipe Inicial (Limpeza Completa):**
-   * Vá em **Wipe > Format Data** e digite `yes`.
-   * Volte e faça Wipe de: `Dalvik / ART Cache`, `Cache` e `System`.
-3. **Flashing via ADB Sideload ou Memória Interna / OTG:**
-   * Instale os arquivos rigorosamente na seguinte sequência:
-     1. 🔄 **`legacy to retrofit dynamic by @raphael_alpha.zip`** (Apenas se estiver vindo de ROMs legacy sem retrofit).
-     2. 📶 **`fw_raphael_miui_RAPHAELGlobal_V12.5.2.0.RFKMIXM.zip`** (Firmware Global).
-     3. 🌿 **`lineage-19.1-*-UNOFFICIAL-raphael.zip`** (ROM LineageOS).
-     4. 📦 **NikGApps A12.1** *(Opcional - caso queira a Play Store e serviços Google)*.
-     5. 🛡️ **`Disable_Dm-Verity_ForceEncrypt.zip`** (DFE).
-4. **Finalização:**
-   * Faça um **Format Data** final (`yes`) para garantir inicialização limpa.
-   * Selecione **Reboot System**.
+1. **Instalar o Recovery (OrangeFox):**
+   ```bash
+   # no fastboot
+   fastboot flash recovery OrangeFox-R11.3_Unified-Unofficial-raphael.zip
+   ```
+   *(se o `.img` for necessário, extraia o arquivo `recovery.img` de dentro do zip)*
+
+2. **Wipe Inicial:**
+   * Entre no OrangeFox.
+   * **Wipe > Format Data** e digite `yes`.
+   * Faça também Wipe de: `Dalvik / ART Cache`, `Cache` e `System`.
+
+3. **Preparar o Super (partições dinâmicas):**
+   * Reinicie para o **fastboot**.
+   ```bash
+   fastboot wipe-super super_empty.img
+   ```
+
+4. **Instalar a ROM:**
+   * Reinicie de novo para o **recovery (OrangeFox)**.
+   * Instale via ADB Sideload:
+   ```bash
+   adb sideload lineage-19.1-*-UNOFFICIAL-raphael.zip
+   ```
+
+5. **Opcional — Root via Magisk (boot_custom.img):**
+   * Após o boot, volte ao **fastboot** e flashe o boot com Magisk embutido:
+   ```bash
+   fastboot flash boot boot_custom.img
+   ```
+
+6. **Finalização:**
+   * **Reboot System** e aguarde o primeiro boot (pode levar alguns minutos).
 
 ---
 
