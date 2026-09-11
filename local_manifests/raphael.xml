@@ -17,4 +17,7 @@
 
     <!-- Hardware / Xiaomi Common Interfaces (fork do Jairo) -->
     <project name="jairorossi/android_hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-19.0" />
+
+    <!-- Prebuilt apps (APKs grandes, Git LFS) - Miui Gallery, Editor, GBoard, Markup -->
+    <project name="jairorossi/vendor_jairo_apps" path="vendor/jairo/apps" remote="github" revision="main" />
 </manifest>
