@@ -15,8 +15,11 @@
     <!-- Vendor Blobs (TheMuppets - GitLab, pois a branch lineage-19.1 só existe lá) -->
     <project name="the-muppets/proprietary_vendor_xiaomi" path="vendor/xiaomi" remote="gitlab" revision="lineage-19.1" />
 
-    <!-- Hardware / Xiaomi Common Interfaces (fork do Jairo) -->
-    <project name="jairorossi/android_hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-19.0" />
+    <!-- Hardware / Xiaomi Common Interfaces (upstream, tem xiaomifingerprint_headers) -->
+    <project name="LineageOS/android_hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-19.1" />
+
+    <!-- MindTheGapps (Android 12.1 / SDK 32) -->
+    <project name="MindTheGapps/vendor_gapps" path="vendor/gapps" remote="gitlab" revision="sigma" />
 
     <!-- Prebuilt apps (APKs grandes, Git LFS) - Miui Gallery, Editor, GBoard, Markup -->
     <project name="jairorossi/vendor_jairo_apps" path="vendor/jairo/apps" remote="github" revision="main" />
