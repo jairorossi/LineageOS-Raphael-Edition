@@ -9,8 +9,8 @@
     <project name="jairorossi/android_device_xiaomi_raphael" path="device/xiaomi/raphael" remote="github" revision="lineage-19.1" />
     <project name="jairorossi/android_device_xiaomi_sm8150-common" path="device/xiaomi/sm8150-common" remote="github" revision="lineage-19.1" />
 
-    <!-- Kernel Source (fork do Jairo) -->
-    <project name="jairorossi/android_kernel_xiaomi_sm8150" path="kernel/xiaomi/sm8150" remote="github" revision="lineage-19.1" />
+    <!-- Kernel Source (CAF raphael, tem raphael_defconfig + raphael-sm8150-overlay.dtbo) -->
+    <project name="UtsavBalar1231/kernel_xiaomi_raphael" path="kernel/xiaomi/sm8150" remote="github" revision="android11" />
 
     <!-- Vendor Blobs (TheMuppets - GitLab, pois a branch lineage-19.1 só existe lá) -->
     <project name="the-muppets/proprietary_vendor_xiaomi" path="vendor/xiaomi" remote="gitlab" revision="lineage-19.1" />
