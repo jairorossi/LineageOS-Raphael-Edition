@@ -136,11 +136,43 @@ Os apps pré-compilados (Miui Gallery, Miui Gallery Editor, GBoard e MarkupGoogl
 
 ### 4. Compilar a ROM
 ```bash
+export USE_CCACHE=1
+ccache -M 20G
 source build/envsetup.sh
 lunch lineage_raphael-userdebug
 mka bacon -j$(nproc --all)
 ```
 O arquivo `.zip` final instalável será gerado em `out/target/product/raphael/`.
+
+> [!WARNING]
+> ### ⚠️ Aviso crítico sobre o boot (kernel)
+> A ROM compila normalmente (status=0), porém o **kernel CAF (`UtsavBalar1231/kernel_xiaomi_raphael`) NÃO boota** no aparelho — ele inicia e cai para fastboot.
+>
+> **Solução (já validada):** após flashear a ROM, flashe o **`boot_custom.img`** (kernel 4.14 da LOS + Magisk) por cima:
+> ```bash
+> fastboot flash boot boot_custom.img
+> ```
+> O `boot_custom.img` é o **kernel definitivo** que boota. Ele fica na pasta do projeto (não versionado no git por ter 128MB / exceder o limite do GitHub).
+>
+> **Para reproduzir em servidor novo:** pegar o `boot_custom.img` da Release/backup e copiar para a pasta do projeto.
+
+---
+
+## 📝 Notas de Build (estado atual & decisões)
+
+Estas notas explicam decisões importantes para quando trocar de servidor ou recompilar:
+
+1. **Arch tuning ativo:** `TARGET_ARCH_VARIANT := armv8-2a` + `TARGET_CPU_VARIANT := kryo385` (Cortex-A76) estão em `jairorossi/android_device_xiaomi_sm8150-common` → melhora desempenho usando ARMv8.2-A.
+
+2. **Kernel:** o `UtsavBalar1231/kernel_xiaomi_raphael` (CAF, `android11`) compila e gera o `raphael-sm8150-overlay.dtbo`, mas **não boota** no hardware. O boot funcional é via `boot_custom.img` (flash manual). *(Pendência: investigar o kernel correto que boota direto — candidato: `firebird11`/crDroid `16.0-raphael`.)*
+
+3. **MindTheGapps:** branch `sigma` (SDK 32 / Android 12.1) — o nome `lineage-19.1` foi renomeado no projeto MindTheGapps. A ROM sai com GApps embutida.
+
+4. **hardware/xiaomi:** apontado para o upstream `LineageOS/android_hardware_xiaomi` (`lineage-19.1`), pois fornece o `xiaomifingerprint_headers` (necessário para o UDFPS/fingerprint).
+
+5. **Three-finger swipe screenshot:** ⏳ **Ainda não aplicado** nesta build. O commit de referência é o do PixelOS (`c6290c54`, "base: Add three-fingers-swipe to screenshot"). Precisa de adaptação manual no `frameworks/base` (PhoneWindowManager + ActivityManagerService) pois as assinaturas divergem do LineageOS 19.1.
+
+6. **Bootanimation "Jairo Edition"** (1080x360): ✅ restaurado via `TARGET_BOOTANIMATION` no `device.mk` do raphael.
 
 ---
 
